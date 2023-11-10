@@ -4,9 +4,12 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import com.example.probandoapis.databinding.ActivityMainBinding
+import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.MarkerOptions
 import retrofit2.Call
 import retrofit2.Response
 
@@ -42,5 +45,18 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
 
     override fun onMapReady(googleMap: GoogleMap) {
         map = googleMap
+        createMarker()
+
     }
+
+    private fun createMarker() {
+        val coordinate = LatLng(2.444819,-76.639380)
+        val marker = MarkerOptions().position(coordinate).title("MiCasita")
+        map.addMarker(marker)
+        map.animateCamera(
+            CameraUpdateFactory.newLatLngZoom(coordinate, 18f),
+            4000,null
+        )
+    }
+
 }
